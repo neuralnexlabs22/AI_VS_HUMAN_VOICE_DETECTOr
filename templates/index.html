@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Voice Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>AI Voice vs Human Voice Detector</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <label class="custom-file">
+                Choose Audio File
+                <input type="file" name="audio" required onchange="showFileName(this)">
+            </label>
+
+            <p id="file-name"></p>
+
+            <br><br>
+
+            <!-- 🔥 Loading button -->
+            <button class="but" type="submit" onclick="showLoading()">Analyze Voice</button>
+
+            <p id="loading" style="display:none; color: yellow;">
+                Processing... please wait ⏳
+            </p>
+
+        </form>
+
+        <h2 class="result">{{ result }}</h2>
+
+        {% if waveform %}
+        <div class="wave-container">
+            <h3>Audio Waveform</h3>
+            <img src="{{ url_for('static', filename=waveform) }}" width="500">
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+
+<script>
+function showFileName(input) {
+    document.getElementById("file-name").innerText = input.files[0].name;
+}
+
+function showLoading() {
+    document.getElementById("loading").style.display = "block";
+}
+</script>
+
+</html>
